@@ -43,3 +43,11 @@ The app uses [Karma](http://karma-runner.github.io/0.12/index.html) to run the t
 $ npm install
 $ npm test
 ```
+
+## Running locally
+
+To Run the application locally use:
+
+```
+$ npm start
+```
