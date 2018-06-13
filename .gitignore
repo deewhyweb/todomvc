@@ -10,3 +10,4 @@ cypress/screenshots
 !.vscode/extensions.json
 /.classpath
 /.project
+/.tern-project
