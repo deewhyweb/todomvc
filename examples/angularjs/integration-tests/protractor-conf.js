@@ -1,7 +1,7 @@
 exports.config = {
   framework: 'cucumber',
   rootElement: 'body', // location of ng-app directive
-  seleniumAddress: 'http://zalenium:4444/wd/hub',
+  seleniumAddress: 'http://zalenium.todomvc-stage.svc:4444/wd/hub',
   capabilities: {
     'browserName': 'chrome'
   },

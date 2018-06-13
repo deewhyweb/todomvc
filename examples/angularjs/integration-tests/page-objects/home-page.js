@@ -28,7 +28,7 @@ var toDoEls   = element.all(by.repeater('todo in todos'));
 
 
 var homePage = {
-  url: 'http://todomvc-selenium.apps.raffa1.casl-contrib.osp.rht-labs.com',
+  url: 'http://todomvc-todomvc-stage.apps.raffa1.casl-contrib.osp.rht-labs.com/',
 
 
   /**
