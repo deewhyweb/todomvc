@@ -11,11 +11,105 @@ chai.use(chaiAsPromised);
 // Convenience.
 var expect = chai.expect;
 
-// Require page objects.
+var {defineSupportCode} = require('cucumber');
+
+//Require page objects.
 var homePage = require('../../page-objects/home-page');
 
+defineSupportCode(({Given, When, Then}) => {
+	  Given(/^I am on the app home page\.?$/, function (done) {
+		    var expectedTitle = 'AngularJS • TodoMVC';
 
-module.exports = function myStepDefinitions() {
+		    // The page loading is async so we need an async expectation
+		    // and an async 'done'.
+		    expect(homePage.getPageTitle())
+		      .to.eventually.equal(expectedTitle)
+		      .notify(done);
+		  });
+
+
+		  When(/^I add a todo called "([^"]*)"\.?$/, addTodoText);
+
+
+		  When(/^I add the todos\.?$/, addTodoText);
+
+
+		  // Use a data table. API here
+		  // https://github.com/cucumber/cucumber-js/blob/master/lib/cucumber/ast/data_table.js
+		  When(/^I add multiple todos:$/, function (table, done) {
+		    var world = this;
+
+		    table = world.flattenTable(table);
+
+		    table.forEach(function (todoText) {
+		      homePage.createTodo(todoText);
+		    });
+
+		    world.expectedNumberOfTodos = table.length;
+
+		    done(); 
+		  });
+
+
+		  // Deliberately pending step.
+		  When(/^Something is done\.$/, function (done) {
+		    // Write code here that turns the phrase above into concrete actions
+		    done.pending();
+		  });
+
+
+		  Then(/^I should see it added to the todo list\.?$/, function (done) {
+		    checkFirstTodoText(this.expectedTodoText, done);
+		  });
+
+
+		  Then(/^I should see a todo called "([^"]*)"\.?$/, function (expectedTodoText, done) {
+		    checkFirstTodoText(expectedTodoText, done);
+		  });
+
+
+
+		  Then(/^I should see them added to the todo list\.$/, function (done) {
+		    var world = this;
+
+		    // Split the expected text string on new line to
+		    // allow comparison to the array of todos taken
+		    // from the UI.
+		    var expectedTodoTextArray = world.expectedTodoText.split(/\r?\n/);
+
+		    // Use Chai deep equal to compare arrays.
+		    homePage.getAllTodoText()
+		      .then(function(todoTextArray) {
+		        expect(todoTextArray).to.deep.equal(expectedTodoTextArray);
+		        done();
+		      });
+		  });
+
+
+		 Then(/^there should be that number of todos in the list\.?$/, function (done) {
+		    var world = this;
+		    checkNumberOfTodos(world.expectedNumberOfTodos, done);
+		  });
+
+
+		  Then(/^it should (.*) in the list\.$/, function (appearOrNot, done) {
+		    var expectedNumberOfTodos = (appearOrNot === 'appear') ? 1 : 0;
+		    checkNumberOfTodos(expectedNumberOfTodos, done);
+		  });
+
+
+		  Then(/^there should be a measurable result\.$/, function (done) {
+		    // Write code here that turns the phrase above into concrete actions
+		    done.pending();
+		  });
+	
+	
+});
+
+
+
+
+/*module.exports = function myStepDefinitions() {
 
   this.Given(/^I am on the app home page\.?$/, function (done) {
     var expectedTitle = 'AngularJS • TodoMVC';
@@ -103,7 +197,7 @@ module.exports = function myStepDefinitions() {
     done.pending();
   });
 };
-
+*/
 
 
 /* Helper functions */
