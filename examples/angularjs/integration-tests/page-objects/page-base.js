@@ -5,6 +5,8 @@ module.exports = {
   url: '',
   get: get,
   getPageTitle: getPageTitle,
+  clearLocalStorage: clearLocalStorage,
+  goToHomePage: goToHomePage
 };
 
 
@@ -22,10 +24,40 @@ function get() {
 }
 
 
+
+/**
+ * Clear Local Storage
+ * @return {string} page title.
+ */
+function clearLocalStorage() {
+  
+  browser.executeScript('window.localStorage.clear();');
+  //browser.get('javascript://localStorage.clear();')
+
+  
+}
+
+
+
+/**
+ * Navigate to home.
+ * @return {string} page title.
+ */
+function goToHomePage() {
+  
+  browser.get("http://localhost:8080/#!/");
+
+  
+  //browser.get('javascript://localStorage.clear();')
+
+  
+}
+
 /**
  * Get the page title.
  * @return {string} page title.
  */
 function getPageTitle() {
   return browser.getTitle();
+  
 }

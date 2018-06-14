@@ -11,17 +11,25 @@ chai.use(chaiAsPromised);
 // Convenience.
 var expect = chai.expect;
 
-const { Given, When, Then } = require('cucumber');
+const { Given, When, Then, After, Before } = require('cucumber');
 
 //Require page objects.
 var homePage = require('../../page-objects/home-page');
-
+  After(() => {
+    homePage.clearLocalStorage();
+    
+  });
+  Before(() => {
+    homePage.goToHomePage();
+    
+  });
 	
   Given(/^I am on the app home page\.?$/, function (done) {
     var expectedTitle = 'AngularJS • TodoMVC';
 
 // The page loading is async so we need an async expectation
 // and an async 'done'.
+    
     expect(homePage.getPageTitle())
       .to.eventually.equal(expectedTitle)
       .notify(done);
@@ -80,6 +88,8 @@ var expectedTodoTextArray = world.expectedTodoText.split(/\r?\n/);
 // Use Chai deep equal to compare arrays.
     homePage.getAllTodoText()
       .then(function(todoTextArray) {
+        console.log(todoTextArray);
+        console.log(expectedTodoTextArray);
         expect(todoTextArray).to.deep.equal(expectedTodoTextArray);
         done();
       });
@@ -211,8 +221,14 @@ function checkFirstTodoText(expectedTodoText, done) {
   // Here the promise is handled explicitly in the check.
   homePage.getFirstTodoText()
     .then(function(todoText) {
-      expect(todoText).to.equal(expectedTodoText);
-      done();
+      try {
+        expect(todoText).to.equal(expectedTodoText);
+        done();
+      }
+      catch(err){
+        done(err);
+      }
+      
     });
 }
 
