@@ -2,15 +2,16 @@ exports.config = {
   framework: 'custom',
   frameworkPath: require.resolve('protractor-cucumber-framework'),
   rootElement: 'body', // location of ng-app directive
-  seleniumAddress: 'http://localhost:4444/wd/hub',
+  seleniumAddress: 'http://zalenium.todomvc-stage.svc:4444/wd/hub',
+//  seleniumAddress: 'http://localhost:4444/wd/hub',
   capabilities: {
 	    'browserName': 'chrome'
 	  },
-//  multiCapabilities: [{
-//	  'browserName': 'firefox'
-//	}, {
-//	  'browserName': 'chrome'
-//	}],
+ multiCapabilities: [{
+	  'browserName': 'firefox'
+	}, {
+	  'browserName': 'chrome'
+	}],
   specs: ['features/*.feature'],
   coloredLogs: false,
   // See cucumberOpts in https://github.com/angular/protractor/blob/master/docs/referenceConf.js
