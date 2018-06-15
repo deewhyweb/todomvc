@@ -4,7 +4,6 @@ exports.config = {
   rootElement: 'body', // location of ng-app directive
   seleniumAddress: 'http://zalenium.todomvc-stage.svc:4444/wd/hub',
   //seleniumAddress: 'http://localhost:4444/wd/hub',
-  
   //baseURL: 'http://todomvc-todomvc-stage.apps.raffa1.casl-contrib.osp.rht-labs.com',
   capabilities: {
 	    'browserName': 'chrome'
