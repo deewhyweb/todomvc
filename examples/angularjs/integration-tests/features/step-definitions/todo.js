@@ -15,14 +15,25 @@ const { Given, When, Then, After, Before } = require('cucumber');
 
 //Require page objects.
 var homePage = require('../../page-objects/home-page');
-  After(() => {
-    homePage.clearLocalStorage();
+  After({timeout:3000}, () => {
+    return new Promise(function(resolve) {
+      homePage.clearLocalStorage(function(){
+        resolve();
+      });
+    });
+      
+    
+    
     
   });
   Before(() => {
-    homePage.goToHomePage();
+    return new Promise(function(resolve) {
+      homePage.goToHomePage(function(){
+        resolve();
+      });
     
   });
+});
 	
   Given(/^I am on the app home page\.?$/, function (done) {
     var expectedTitle = 'AngularJS • TodoMVC';

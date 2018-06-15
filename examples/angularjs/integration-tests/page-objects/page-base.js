@@ -29,10 +29,13 @@ function get() {
  * Clear Local Storage
  * @return {string} page title.
  */
-function clearLocalStorage() {
+function clearLocalStorage(done) {
+  setTimeout(() => {
+    browser.executeScript('window.localStorage.clear();');
+    //browser.get('javascript://localStorage.clear();')
+    done();
+  }, 1000)
   
-  browser.executeScript('window.localStorage.clear();');
-  //browser.get('javascript://localStorage.clear();')
 
   
 }
@@ -43,14 +46,13 @@ function clearLocalStorage() {
  * Navigate to home.
  * @return {string} page title.
  */
-function goToHomePage() {
-  
+function goToHomePage(done) {
   browser.get("http://localhost:8080/#!/");
-
-  
-  //browser.get('javascript://localStorage.clear();')
-
-  
+  setTimeout(() => {
+    
+   //browser.get('javascript://localStorage.clear();')
+   done();
+  }, 1000)
 }
 
 /**
