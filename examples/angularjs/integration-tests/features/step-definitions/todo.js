@@ -88,8 +88,6 @@ var expectedTodoTextArray = world.expectedTodoText.split(/\r?\n/);
 // Use Chai deep equal to compare arrays.
     homePage.getAllTodoText()
       .then(function(todoTextArray) {
-        console.log(todoTextArray);
-        console.log(expectedTodoTextArray);
         expect(todoTextArray).to.deep.equal(expectedTodoTextArray);
         done();
       });
