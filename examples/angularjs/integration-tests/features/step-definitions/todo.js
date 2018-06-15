@@ -15,7 +15,7 @@ const { Given, When, Then, After, Before } = require('cucumber');
 
 //Require page objects.
 var homePage = require('../../page-objects/home-page');
-  After({timeout:3000}, () => {
+  After(() => {
     return new Promise(function(resolve) {
       homePage.clearLocalStorage(function(){
         resolve();
